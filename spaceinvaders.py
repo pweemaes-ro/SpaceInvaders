@@ -28,7 +28,6 @@ class GameWindow:
 		self.window.onkeypress(self.set_cannon_direction_to_right, "Right")
 		self.window.onkeyrelease(self.stop_cannon_movement, "Left")
 		self.window.onkeyrelease(self.stop_cannon_movement, "Right")
-		# self.window.onkeypress(turtle.bye, "q")
 		self.window.onkeypress(self.game_over, "q")
 		self.window.onkeypress(self.toggle_paused, "p")
 		self.window.onkeypress(self.create_laser, "space")
@@ -47,7 +46,10 @@ class GameWindow:
 	def game_over(self) -> None:
 		"""Aborts the game"""
 
-		self.game_running = False
+		if self.game_running:
+			self.game_running = False
+		else:
+			turtle.bye()
 
 	def toggle_paused(self) -> None:
 		"""Pause/unpause the game."""
@@ -71,8 +73,8 @@ class GameWindow:
 
 	def create_laser(self) -> None:
 		"""Create new laser and add it to the list of all active lasers."""
-		lasers = getattr(self.window, "lasers")
-		lasers.add(Laser())
+		
+		getattr(self.window, "lasers").add(Laser())
 	
 	def play(self) -> None:
 		"""Play Space Invaders"""
