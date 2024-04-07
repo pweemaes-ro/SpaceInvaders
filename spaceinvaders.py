@@ -57,35 +57,40 @@ class GameWindow:
 		self.game_paused = not self.game_paused
 
 	def set_cannon_direction_to_left(self) -> None:
-		"""Function called when left arrow key is presssed."""
+		"""Function called when left arrow key is presssed.  Set direction of
+		cannon movement to the left."""
 		
 		getattr(self.window, "cannon").cannon_movement = -1
 
 	def set_cannon_direction_to_right(self) -> None:
-		"""Function called when right arrow key is presssed."""
+		"""Function called when right arrow key is presssed. Set direction of
+		cannon movement to the right."""
 		
 		getattr(self.window, "cannon").cannon_movement = 1
 
 	def stop_cannon_movement(self) -> None:
-		"""Function called when right or left arrow kay is released."""
+		"""Function called when right or left arrow key is released. Set
+		direction of cannon movement to 'no movement'."""
 		
 		getattr(self.window, "cannon").cannon_movement = 0
 
 	def create_laser(self) -> None:
-		"""Create new laser and add it to the list of all active lasers."""
+		"""Function called when space key is presssed. Create new laser and add
+		it to the list of active lasers."""
 		
 		getattr(self.window, "lasers").add(Laser())
 	
 	def play(self) -> None:
-		"""Play Space Invaders"""
+		"""Play the game"""
 		
 		alien_timer = 0.0
-		game_timer = time.time()
-		score = 0
-		
-		# Game loop
-		self.game_running = True
 		cannon = getattr(self.window, "cannon")
+		score = 0
+		self.game_running = True
+
+		game_timer = time.time()
+
+		# Game loop
 		while self.game_running:
 			frame_start_time = time.time()
 
@@ -125,13 +130,13 @@ class GameWindow:
 						self.game_running = False
 						break
 			
-			# Done before the reserved time for frame is over? Sleep!
-			sleep_time = self.TIME_PER_FRAME - (time.time() - frame_start_time)
-			if sleep_time > 0:
+			# Frame done before the reserved time for frame is over? Sleep!
+			if (sleep_time := self.TIME_PER_FRAME -
+			                  (time.time() - frame_start_time)) > 0:
 				time.sleep(sleep_time)
 			
 			self.window.update()
-		
+			
 		GameOver()
 
 
