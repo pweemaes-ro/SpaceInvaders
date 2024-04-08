@@ -15,7 +15,7 @@ class Score(turtle.Turtle):
 		                 self.screen.window_height() * 0.4)
 		self.color(1, 1, 1)
 
-	def update(self, time_elapsed: float, score: int):
+	def update(self, time_elapsed: float, score: int) -> None:
 		"""Update the score fields."""
 		
 		self.clear()
